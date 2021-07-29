@@ -18,14 +18,14 @@ CXXFLAGS=
 	--clang-vendor "Neutron" \
 	--defines "LLVM_PARALLEL_COMPILE_JOBS=$(nproc) LLVM_PARALLEL_LINK_JOBS=$(nproc)" \
 	--shallow-clone \
-	--targets "ARM;AArch64" \
+	--targets "ARM;AArch64;X86" \
 	--pgo kernel-defconfig \
 	--lto full \
-	--projects "clang;lld"
+	--projects "clang;lld;polly"
 
 # Build binutils
 msg "Building binutils..."
-./build-binutils.py --targets arm aarch64
+./build-binutils.py --targets arm aarch64 x86_64
 
 # Remove unused products
 msg "Removing unused products..."
