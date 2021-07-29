@@ -1,23 +1,27 @@
 #!/usr/bin/env bash
 
-set -eo pipefail
-
 # Function to show an informational message
-function msg() {
-    echo -e "\e[1;32m$@\e[0m"
+msg() {
+    echo -e "\e[1;32m$*\e[0m"
 }
 
-# Don't touch repo if running on CI
-[ -z "$GH_RUN_ID" ] && repo_flag="--shallow-clone" || repo_flag="--no-update"
-
+err() {
+    echo -e "\e[1;41m$*\e[0m"
+}
 # Build LLVM
 msg "Building LLVM..."
+CC=clang \
+CFLAGS= \
+CXX=clang++ \
+CXXFLAGS=
 ./build-llvm.py \
 	--clang-vendor "Neutron" \
+	--defines "LLVM_PARALLEL_COMPILE_JOBS=$(nproc) LLVM_PARALLEL_LINK_JOBS=$(nproc)" \
+	--shallow-clone \
 	--targets "ARM;AArch64" \
-	"$repo_flag" \
 	--pgo kernel-defconfig \
-	--lto full
+	--lto full \
+	--projects "clang;lld"
 
 # Build binutils
 msg "Building binutils..."
