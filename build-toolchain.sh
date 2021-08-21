@@ -16,8 +16,7 @@ msg "Building LLVM..."
 	--shallow-clone \
 	--targets "ARM;AArch64;X86" \
 	--pgo kernel-defconfig \
-	--lto full \
-	--projects "clang;lld;polly"
+	--lto full
 
 # Build binutils
 msg "Building binutils..."
