@@ -12,7 +12,7 @@ err() {
 msg "Building LLVM..."
 ./build-llvm.py \
 	--clang-vendor "Neutron" \
-	--defines "LLVM_PARALLEL_COMPILE_JOBS=$(nproc) LLVM_PARALLEL_LINK_JOBS=$(nproc) CMAKE_C_FLAGS=-O3 CMAKE_CXX_FLAGS=-O3 LLVM_USE_LINKER=lld LLVM_USE_NEWPM=ON LLVM_ENABLE_LLD=ON" \
+	--defines "LLVM_PARALLEL_COMPILE_JOBS=$(nproc) LLVM_PARALLEL_LINK_JOBS=$(nproc) CMAKE_C_FLAGS=-O3 CMAKE_CXX_FLAGS=-O3 LLVM_USE_LINKER=lld LLVM_ENABLE_LLD=ON" \
 	--shallow-clone \
 	--targets "ARM;AArch64;X86" \
 	--pgo kernel-defconfig \
